@@ -230,7 +230,7 @@ def shoot(url, out, *, title=None, subtitle=None, vw=600, vh=800, dsf=2,
             # darken it so it survives the e-ink dither and the matting step's ink
             # detection (a no-op once there are birds).
             page.evaluate("(t) => { const e = document.querySelector('.empty'); if (e) { e.textContent = t; e.style.color = '#555'; } }", empty_text)
-            page.wait_for_timeout(250)
+            page.wait_for_timeout(600)
             # clip is CSS px; device_scale_factor scales the PNG to vw*dsf by vh*dsf = 1200x1600
             page.screenshot(path=out, clip={"x": 0, "y": 0, "width": vw, "height": vh})
         finally:

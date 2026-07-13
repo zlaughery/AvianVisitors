@@ -561,6 +561,17 @@
   .gtile.is-hover img {
     filter: drop-shadow(0 3px 10px rgba(26,22,18,0.26)) saturate(1.1);
   }
+  .gtile-label {
+    display: block;
+      font-size: 11px;
+    line-height: 16px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+    color: var(--ink, #3a3a3a);
+}
   /* Hover pill - surfaces the windowed count for the bird under the
      cursor. Confirms (Anna's-hummingbird-is-#1 paranoia) that the
      collage scaling reflects the selected window, not all-time. */

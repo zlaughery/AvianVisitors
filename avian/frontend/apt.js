@@ -56,7 +56,7 @@
   // Each view's title text. The shared static-head shows one of these
   // based on the current view; identical adjacent values mean the title
   // stays put with no fade (collage and stats both say Heard Recently).
-  var VIEW_TITLES = ['Heard Recently', 'Heard Recently', 'Avian Visitors'];
+  var VIEW_TITLES = ['Heard Recently', 'All Time Stats', 'All Feathered Friends'];
   var staticHead = document.querySelector('.static-head');
   var staticTitle = document.getElementById('staticTitle');
   function setTitleForView(i) {
@@ -256,6 +256,7 @@
                        // otherwise. Rolled once per window appearance.
   var collagePose = {}; // sci -> 1 perched | 2 flight, persisted across polls;
                         // cleared when a bird leaves the window so it rerolls.
+  var INITIAL_H = 16;
 
   // Decode and cache each mask once. Sparse cell-list form (only "on"
   // cells) makes collision tests linear in opaque area, not total area.
@@ -296,7 +297,7 @@
       // For mask cell (c[0], c[1]), return [gx0, gy0, gx1, gy1] (inclusive)
       // in grid coords, clamped to the grid.
       var sx = tile.fullW / tile.mask.w;
-      var sy = tile.fullH / tile.mask.h;
+      var sy = tile.imgH / tile.mask.h;   // was tile.fullH / tile.mask.h
       var x0 = (tx + c[0] * sx) / GRID_STRIDE | 0;
       var y0 = (ty + c[1] * sy) / GRID_STRIDE | 0;
       var x1 = (tx + (c[0] + 1) * sx) / GRID_STRIDE | 0;
@@ -333,6 +334,16 @@
           var off = gy * GW;
           for (var gx = gx0; gx <= gx1; gx++) grid[off + gx] = 1;
         }
+      }
+      // Reserve the label strip below the bird as a solid block, so
+      // adjacent tiles can't pack into the space meant for text.
+      var lx0 = Math.max(0, (tx - pad * GRID_STRIDE) / GRID_STRIDE | 0);
+      var lx1 = Math.min(GW - 1, (tx + tile.fullW + pad * GRID_STRIDE) / GRID_STRIDE | 0);
+      var ly0 = Math.max(0, (ty + tile.imgH) / GRID_STRIDE | 0);
+      var ly1 = Math.min(GH - 1, (ty + tile.fullH + pad * GRID_STRIDE) / GRID_STRIDE | 0);
+      for (var gy = ly0; gy <= ly1; gy++) {
+        var off = gy * GW;
+        for (var gx = lx0; gx <= lx1; gx++) grid[off + gx] = 1;
       }
     }
     function offGrid(tile, tx, ty) {
@@ -500,7 +511,8 @@
     // Step 3: derive width/height from area + per-species aspect.
     tiles.forEach(function (t) {
       t.fullW = Math.sqrt(t.area * t.ar);
-      t.fullH = t.fullW / t.ar;
+      t.imgH  = t.fullW / t.ar;       // the bird's actual rendered height
+      t.fullH = t.imgH + LABEL_H;      // footprint height used for packing/placement
     });
 
     // Width-responsive: wide screens get a horizontal ellipse at full padding;
@@ -580,7 +592,11 @@
       btn.style.top    = r.y + 'px';
       btn.style.width  = r.fullW + 'px';
       btn.style.height = r.fullH + 'px';
-      btn.innerHTML = '<img loading="lazy" decoding="async" src="' + img + '" alt="' + s.com + '">';
+      //btn.innerHTML = '<img loading="lazy" decoding="async" src="' + img + '" alt="' + s.com + '">';
+      btn.innerHTML =
+        '<img loading="lazy" decoding="async" src="' + img + '" alt="' + s.com + '" ' +
+        'style="width:100%;height:' + r.imgH + 'px;display:block;">' +
+        '<span class="gtile-label" style="height:' + LABEL_H + 'px;">' + s.com + '</span>';
       r.el = btn;
       collage.appendChild(btn);
     });

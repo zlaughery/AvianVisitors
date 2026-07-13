@@ -116,8 +116,8 @@ elif [ "$MODE" = local ]; then
   cat > "$CONFIG" <<'CFG'
 # birdframe-mode: local
 # AvianVisitors frame, local mode: mirrors the BirdNET-Pi on your network.
-# This Pi screenshots birdnet.local itself, so there is nothing else to set up.
-base_url = "http://birdnet.local"
+# This Pi screenshots birdnet2.local itself, so there is nothing else to set up.
+base_url = "http://birdnet2.local"
 shoot = true
 shoot_title = "Avian Visitors"
 shoot_subtitle = "Heard Today"

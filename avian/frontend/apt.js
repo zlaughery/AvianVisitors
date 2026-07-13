@@ -554,7 +554,8 @@
         var sy = (H * 0.94) / Math.max(clH, H * 0.94);
         scale = Math.min(scale, sx, sy);
       }
-      tiles.forEach(function (t) { t.fullW *= scale; t.fullH *= scale; });
+      tiles.forEach(function (t) { t.fullW *= scale; t.fullH *= scale; t.imgH *= scale; });
+      //tiles.forEach(function (t) { t.fullW *= scale; t.fullH *= scale; });
       placed = maskPack(tiles, W, H, xBias, yBias, pad);
       b = clusterBounds(placed);
     }

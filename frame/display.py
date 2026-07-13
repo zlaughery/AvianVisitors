@@ -39,7 +39,7 @@ SPECTRA6 = [(236, 234, 223), (26, 26, 28), (165, 60, 56),
             (198, 176, 74), (49, 71, 130), (58, 110, 72)]
 
 DEFAULTS = {
-    "base_url": "http://birdnet.local",
+    "base_url": "http://birdnet2.local",
     "species_source": "",   # "" = the recent API at base_url; "birdweather" = BirdWeather near a ZIP
     "zip": "",              # BirdWeather ZIP / postal code (with species_source = "birdweather")
     "bw_days": 7,           # BirdWeather lookback window, in days
@@ -50,7 +50,7 @@ DEFAULTS = {
     "shoot": False,         # or capture inline (needs a browser; the 3 A+ and Zero 2 W both handle it)
     "shoot_title": None, "shoot_subtitle": None,
     "shoot_headline_px": 42, "shoot_eyebrow_px": 18, "shoot_lowercase": False,
-    "shoot_mat": 0.04, "shoot_small_floor": 0.04, "shoot_count_exp": 0.65,
+    "shoot_mat": 0.015, "shoot_small_floor": 0.04, "shoot_count_exp": 0.65, "shoot_collage_vh": 52,
     "mat": 0.0,             # extra global shrink of the content inside the A5 opening
     "rotate": 90,           # 90 or 270 if the frame hangs the other way up
     "saturation": 0.6,
@@ -316,7 +316,7 @@ def obtain_image(cfg, species=None):
               headline_px=cfg["shoot_headline_px"], eyebrow_px=cfg["shoot_eyebrow_px"],
               lowercase=cfg["shoot_lowercase"], mat=cfg["shoot_mat"],
               small_floor=cfg["shoot_small_floor"], count_exp=cfg["shoot_count_exp"], timeout_ms=cfg["timeout"] * 1000,
-              user=cfg["basic_user"], password=cfg["basic_pass"])
+              user=cfg["basic_user"], password=cfg["basic_pass"], collage_vh=cfg["shoot_collage_vh"])
         return Image.open(out).convert("RGB")
     src = cfg["image_url"] or cfg["image"]
     if not src:

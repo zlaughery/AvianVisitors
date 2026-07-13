@@ -57,7 +57,7 @@ def _frame_css(headline_px, eyebrow_px, lowercase, pad_top, pad_side, pad_bottom
         f".view#v0 {{ height: 100% !important; flex: 1 1 100% !important; padding: 6px 0 !important; }}"
         f".gcollage {{ max-width: none !important; }}"
         f".static-head {{ padding: 0 8px 14px !important; }}"
-        f".static-head .pre {{ font-size: {eyebrow_px}px !important; }}"
+        f".static-head .pre {{ font-size: {eyebrow_px}px !important; font-weight: bold !important; }}"
         f".static-head h1 {{ font-size: {headline_px}px !important; font-weight: bold !important;}}"
         f".gtile-label {{ font-weight: bold !important; }}"
     )

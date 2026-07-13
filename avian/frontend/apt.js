@@ -256,7 +256,7 @@
                        // otherwise. Rolled once per window appearance.
   var collagePose = {}; // sci -> 1 perched | 2 flight, persisted across polls;
                         // cleared when a bird leaves the window so it rerolls.
-  var INITIAL_H = 16;
+  var LABEL_H = 16;
 
   // Decode and cache each mask once. Sparse cell-list form (only "on"
   // cells) makes collision tests linear in opaque area, not total area.

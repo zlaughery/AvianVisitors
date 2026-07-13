@@ -60,6 +60,7 @@ def _frame_css(headline_px, eyebrow_px, lowercase, pad_top, pad_side, pad_bottom
         f".static-head .pre {{ font-size: {eyebrow_px}px !important; font-weight: bold !important; }}"
         f".static-head h1 {{ font-size: {headline_px}px !important; font-weight: bold !important;}}"
         f".gtile-label {{ font-weight: bold !important; }}"
+        f".gtile img {{ filter: drop-shadow(0 0 1.5px rgba(0,0,0,0.9)) drop-shadow(0 0 1.5px rgba(0,0,0,0.9)) !important; }}"
     )
     if lowercase:
         css += ".static-head h1 { text-transform: none !important; }"
